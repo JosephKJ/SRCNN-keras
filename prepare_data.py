@@ -13,7 +13,7 @@ conv_side = 6
 scale = 2
 
 
-def prepare_data(_path):
+def prepare_data(_path, is_sdd=True):
     names = os.listdir(_path)
     names = sorted(names)
     nums = names.__len__()
@@ -24,6 +24,8 @@ def prepare_data(_path):
     for i in range(nums):
         name = _path + names[i]
         hr_img = cv2.imread(name, cv2.IMREAD_COLOR)
+        if is_sdd:
+            hr_img, im_scale = resize(hr_img, 600, 1000)
         shape = hr_img.shape
 
         hr_img = cv2.cvtColor(hr_img, cv2.COLOR_BGR2YCrCb)
@@ -56,7 +58,7 @@ BLOCK_STEP = 16
 BLOCK_SIZE = 32
 
 
-def prepare_crop_data(_path):
+def prepare_crop_data(_path, is_sdd=True):
     names = os.listdir(_path)
     names = sorted(names)
     nums = names.__len__()
@@ -67,6 +69,8 @@ def prepare_crop_data(_path):
     for i in range(nums):
         name = _path + names[i]
         hr_img = cv2.imread(name, cv2.IMREAD_COLOR)
+        if is_sdd:
+            hr_img, im_scale = resize(hr_img, 600, 1000)
         hr_img = cv2.cvtColor(hr_img, cv2.COLOR_BGR2YCrCb)
         hr_img = hr_img[:, :, 0]
         shape = hr_img.shape
