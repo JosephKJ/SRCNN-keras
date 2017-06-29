@@ -109,6 +109,7 @@ def predict(is_sdd=True):
     img = cv2.imread(IMG_NAME, cv2.IMREAD_COLOR)
     if is_sdd:
         img, im_scale = resize(img, 600, 1000)
+        print(im_scale)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)
     real_img = img
     shape = img.shape
