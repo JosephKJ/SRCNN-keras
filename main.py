@@ -133,5 +133,5 @@ def predict(is_sdd=True):
 
 
 if __name__ == "__main__":
-    # train()
+    train()
     predict()
