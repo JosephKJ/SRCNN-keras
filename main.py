@@ -6,6 +6,7 @@ from keras.optimizers import SGD, Adam
 import prepare_data as pd
 import numpy
 import math
+import cv2
 
 
 def psnr(target, ref):
@@ -105,7 +106,6 @@ def predict(is_sdd=True):
     OUTPUT_NAME = "jkj_srcnn_image.jpg"
     MODIFIED_REAL_NAME = "jkj_modified_real_image.jpg"
 
-    import cv2
     img = cv2.imread(IMG_NAME, cv2.IMREAD_COLOR)
     if is_sdd:
         img, im_scale = resize(img, 600, 1000)
