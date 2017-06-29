@@ -54,7 +54,7 @@ def predict_model():
 def train():
     srcnn_model = model()
     print(srcnn_model.summary())
-    data, label = pd.read_training_data("./train.h5")
+    data, label = pd.read_training_data("./crop_train.h5")
     val_data, val_label = pd.read_training_data("./test.h5")
 
     checkpoint = ModelCheckpoint("SRCNN_check.h5", monitor='val_loss', verbose=1, save_best_only=True,
@@ -68,8 +68,8 @@ def train():
 
 def predict():
     srcnn_model = predict_model()
-    srcnn_model.load_weights("3051crop_weight_200.h5")
-    IMG_NAME = "/home/mark/Engineer/SR/data/Set14/flowers.bmp"
+    srcnn_model.load_weights("SRCNN_check.h5")
+    IMG_NAME = "/home/dl-box/Arghya/joseph/SRCNN-Tensorflow/Test/Set14/flowers.bmp"
     INPUT_NAME = "input2.jpg"
     OUTPUT_NAME = "pre2.jpg"
 
@@ -77,7 +77,7 @@ def predict():
     img = cv2.imread(IMG_NAME, cv2.IMREAD_COLOR)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)
     shape = img.shape
-    Y_img = cv2.resize(img[:, :, 0], (shape[1] / 2, shape[0] / 2), cv2.INTER_CUBIC)
+    Y_img = cv2.resize(img[:, :, 0], (int(shape[1] / 2), int(shape[0] / 2)), cv2.INTER_CUBIC)
     Y_img = cv2.resize(Y_img, (shape[1], shape[0]), cv2.INTER_CUBIC)
     img[:, :, 0] = Y_img
     img = cv2.cvtColor(img, cv2.COLOR_YCrCb2BGR)
@@ -102,12 +102,12 @@ def predict():
     im3 = cv2.imread(OUTPUT_NAME, cv2.IMREAD_COLOR)
     im3 = cv2.cvtColor(im3, cv2.COLOR_BGR2YCrCb)[6: -6, 6: -6, 0]
 
-    print "bicubic:"
-    print cv2.PSNR(im1, im2)
-    print "SRCNN:"
-    print cv2.PSNR(im1, im3)
+    print ("bicubic:")
+    print (cv2.PSNR(im1, im2))
+    print ("SRCNN:")
+    print (cv2.PSNR(im1, im3))
 
 
 if __name__ == "__main__":
-    train()
+    # train()
     predict()
