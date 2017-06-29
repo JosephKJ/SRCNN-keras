@@ -70,8 +70,8 @@ def predict():
     srcnn_model = predict_model()
     srcnn_model.load_weights("SRCNN_check.h5")
     IMG_NAME = "/home/dl-box/Arghya/joseph/SRCNN-Tensorflow/Test/Set14/flowers.bmp"
-    INPUT_NAME = "input2.jpg"
-    OUTPUT_NAME = "pre2.jpg"
+    INPUT_NAME = "bicubic_image.jpg"
+    OUTPUT_NAME = "srcnn_image.jpg"
 
     import cv2
     img = cv2.imread(IMG_NAME, cv2.IMREAD_COLOR)
