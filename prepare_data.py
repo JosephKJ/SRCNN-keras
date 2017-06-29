@@ -125,6 +125,37 @@ def read_training_data(file):
         return train_data, train_label
 
 
+def resize(im, target_size, max_size, stride=0, interpolation = cv2.INTER_LINEAR):
+    """
+    only resize input image to target size and return scale
+    :param im: BGR image input by opencv
+    :param target_size: one dimensional size (the short side)
+    :param max_size: one dimensional max size (the long side)
+    :param stride: if given, pad the image to designated stride
+    :param interpolation: if given, using given interpolation method to resize image
+    :return:
+    """
+    im_shape = im.shape
+    im_size_min = numpy.min(im_shape[0:2])
+    im_size_max = numpy.max(im_shape[0:2])
+    im_scale = float(target_size) / float(im_size_min)
+    # prevent bigger axis from being more than max_size:
+    if numpy.round(im_scale * im_size_max) > max_size:
+        im_scale = float(max_size) / float(im_size_max)
+    im = cv2.resize(im, None, None, fx=im_scale, fy=im_scale, interpolation=interpolation)
+
+    if stride == 0:
+        return im, im_scale
+    else:
+        # pad to product of stride
+        im_height = int(numpy.ceil(im.shape[0] / float(stride)) * stride)
+        im_width = int(numpy.ceil(im.shape[1] / float(stride)) * stride)
+        im_channel = im.shape[2]
+        padded_im = numpy.zeros((im_height, im_width, im_channel))
+        padded_im[:im.shape[0], :im.shape[1], :] = im
+        return padded_im, im_scale
+
+
 if __name__ == "__main__":
     data, label = prepare_crop_data(DATA_PATH)
     write_hdf5(data, label, "crop_train.h5")
