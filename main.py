@@ -149,6 +149,8 @@ def predict(is_sdd=True):
 
     # psnr calculation:
     im1 = cv2.imread(IMG_NAME, cv2.IMREAD_COLOR)
+    if is_sdd:
+        im1, _ = resize(im1, 600, 1000)
     im1 = cv2.cvtColor(im1, cv2.COLOR_BGR2YCrCb)[6: -6, 6: -6, 0]
     im2 = cv2.imread(INPUT_NAME, cv2.IMREAD_COLOR)
     im2 = cv2.cvtColor(im2, cv2.COLOR_BGR2YCrCb)[6: -6, 6: -6, 0]
