@@ -103,13 +103,13 @@ def predict():
     img = cv2.imread(IMG_NAME, cv2.IMREAD_COLOR)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)
     Y_img = img[:, :, 0]
+    # img[:, :, 0] = Y_img
     Y = numpy.zeros((1, img.shape[0], img.shape[1], 1), dtype=float)
     Y[0, :, :, 0] = Y_img.astype(float) / 255.
     pre = srcnn_model.predict(Y, batch_size=1) * 255.
     pre[pre[:] > 255] = 255
     pre[pre[:] < 0] = 0
     pre = pre.astype(numpy.uint8)
-    img[:, :, 0] = Y_img
     img = cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)
     img[6: -6, 6: -6, 0] = pre[0, :, :, 0]
     img = cv2.cvtColor(img, cv2.COLOR_YCrCb2BGR)
