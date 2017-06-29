@@ -76,7 +76,7 @@ def resize(im, target_size, max_size, stride=0, interpolation = cv2.INTER_LINEAR
     :param stride: if given, pad the image to designated stride
     :param interpolation: if given, using given interpolation method to resize image
     :return:
-    """g
+    """
     im_shape = im.shape
     im_size_min = numpy.min(im_shape[0:2])
     im_size_max = numpy.max(im_shape[0:2])
