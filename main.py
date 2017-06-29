@@ -100,10 +100,7 @@ def predict():
     img = cv2.cvtColor(img, cv2.COLOR_YCrCb2BGR)
     cv2.imwrite(OUTPUT_NAME, img)
 
-    img = cv2.imread(IMG_NAME, cv2.IMREAD_COLOR)
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)
-    Y_img = img[:, :, 0]
-    # img[:, :, 0] = Y_img
+    # -- Self Resolution: Starts
     Y = numpy.zeros((1, img.shape[0], img.shape[1], 1), dtype=float)
     Y[0, :, :, 0] = Y_img.astype(float) / 255.
     pre = srcnn_model.predict(Y, batch_size=1) * 255.
@@ -114,6 +111,7 @@ def predict():
     img[6: -6, 6: -6, 0] = pre[0, :, :, 0]
     img = cv2.cvtColor(img, cv2.COLOR_YCrCb2BGR)
     cv2.imwrite(MODIFIED_REAL_NAME, img)
+    # -- Self Resolution: Ends
 
     # psnr calculation:
     im1 = cv2.imread(IMG_NAME, cv2.IMREAD_COLOR)
