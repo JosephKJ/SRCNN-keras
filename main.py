@@ -109,6 +109,7 @@ def predict():
     pre[pre[:] > 255] = 255
     pre[pre[:] < 0] = 0
     pre = pre.astype(numpy.uint8)
+    img[:, :, 0] = Y_img
     img = cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)
     img[6: -6, 6: -6, 0] = pre[0, :, :, 0]
     img = cv2.cvtColor(img, cv2.COLOR_YCrCb2BGR)
