@@ -78,8 +78,8 @@ def predict():
     img = cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)
     shape = img.shape
     Y_img = cv2.resize(img[:, :, 0], (int(shape[1] / 2), int(shape[0] / 2)), cv2.INTER_CUBIC)
-    Y_img_res = cv2.resize(Y_img, (shape[1], shape[0]), cv2.INTER_CUBIC)
-    img[:, :, 0] = Y_img_res
+    Y_img = cv2.resize(Y_img, (shape[1], shape[0]), cv2.INTER_CUBIC)
+    img[:, :, 0] = Y_img
     img = cv2.cvtColor(img, cv2.COLOR_YCrCb2BGR)
     cv2.imwrite(INPUT_NAME, img)
 
