@@ -26,9 +26,9 @@ if __name__ == "__main__":
     im4 = cv2.imread("./pre.jpg", cv2.IMREAD_COLOR)
     im4 = cv2.cvtColor(im4, cv2.COLOR_BGR2YCrCb)[6: -6, 6: -6, 0]
 
-    print "adam:"
-    print psnr(im2, im3)
-    print "bicubic:"
-    print psnr(im2, im1)
-    print "SRCNN:"
-    print psnr(im2, im4)
+    print ("adam:")
+    print (psnr(im2, im3))
+    print ("bicubic:")
+    print (psnr(im2, im1))
+    print ("SRCNN:")
+    print (psnr(im2, im4))
