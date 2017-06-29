@@ -80,6 +80,7 @@ def predict():
     shape = img.shape
     print("Shape of input image")
     print(shape)
+    print(img[:, :, 0].shape)
     Y_img = cv2.resize(img[:, :, 0], (int(shape[1] / 2), int(shape[0] / 2)), cv2.INTER_CUBIC)
     Y_img = cv2.resize(Y_img, (shape[1], shape[0]), cv2.INTER_CUBIC)
     print("Shape of Y_img")
