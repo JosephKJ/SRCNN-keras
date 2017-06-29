@@ -77,6 +77,7 @@ def predict():
     import cv2
     img = cv2.imread(IMG_NAME, cv2.IMREAD_COLOR)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)
+    real_img = img
     shape = img.shape
     print("Shape of input image")
     print(shape)
@@ -102,7 +103,7 @@ def predict():
 
     # -- Self Resolution: Starts
     Y = numpy.zeros((1, img.shape[0], img.shape[1], 1), dtype=float)
-    Y[0, :, :, 0] = Y_img.astype(float) / 255.
+    Y[0, :, :, 0] = real_img[:, :, 0].astype(float) / 255.
     pre = srcnn_model.predict(Y, batch_size=1) * 255.
     pre[pre[:] > 255] = 255
     pre[pre[:] < 0] = 0
