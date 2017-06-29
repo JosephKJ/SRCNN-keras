@@ -72,6 +72,7 @@ def predict():
     IMG_NAME = "/home/dl-box/Arghya/joseph/SRCNN-Tensorflow/Test/Set14/flowers.bmp"
     INPUT_NAME = "bicubic_image.jpg"
     OUTPUT_NAME = "srcnn_image.jpg"
+    MODIFIED_REAL_NAME = "modified_real_image.jpg"
 
     import cv2
     img = cv2.imread(IMG_NAME, cv2.IMREAD_COLOR)
@@ -94,6 +95,19 @@ def predict():
     img = cv2.cvtColor(img, cv2.COLOR_YCrCb2BGR)
     cv2.imwrite(OUTPUT_NAME, img)
 
+    img = cv2.imread(IMG_NAME, cv2.IMREAD_COLOR)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)
+    Y = numpy.zeros((1, img.shape[0], img.shape[1], 1), dtype=float)
+    Y[0, :, :, 0] = img.astype(float) / 255.
+    pre = srcnn_model.predict(Y, batch_size=1) * 255.
+    pre[pre[:] > 255] = 255
+    pre[pre[:] < 0] = 0
+    pre = pre.astype(numpy.uint8)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)
+    img[6: -6, 6: -6, 0] = pre[0, :, :, 0]
+    img = cv2.cvtColor(img, cv2.COLOR_YCrCb2BGR)
+    cv2.imwrite(MODIFIED_REAL_NAME, img)
+
     # psnr calculation:
     im1 = cv2.imread(IMG_NAME, cv2.IMREAD_COLOR)
     im1 = cv2.cvtColor(im1, cv2.COLOR_BGR2YCrCb)[6: -6, 6: -6, 0]
@@ -101,11 +115,15 @@ def predict():
     im2 = cv2.cvtColor(im2, cv2.COLOR_BGR2YCrCb)[6: -6, 6: -6, 0]
     im3 = cv2.imread(OUTPUT_NAME, cv2.IMREAD_COLOR)
     im3 = cv2.cvtColor(im3, cv2.COLOR_BGR2YCrCb)[6: -6, 6: -6, 0]
+    im4 = cv2.imread(MODIFIED_REAL_NAME, cv2.IMREAD_COLOR)
+    im4 = cv2.cvtColor(im4, cv2.COLOR_BGR2YCrCb)[6: -6, 6: -6, 0]
 
-    print ("bicubic:")
-    print (cv2.PSNR(im1, im2))
-    print ("SRCNN:")
-    print (cv2.PSNR(im1, im3))
+    print("bicubic:")
+    print(cv2.PSNR(im1, im2))
+    print("SRCNN:")
+    print(cv2.PSNR(im1, im3))
+    print("SR on real image:")
+    print(cv2.PSNR(im1, im4))
 
 
 if __name__ == "__main__":
