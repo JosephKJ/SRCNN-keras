@@ -6,6 +6,10 @@ import numpy
 
 DATA_PATH = "/home/dl-box/Arghya/joseph/SRCNN-Tensorflow/Train/"
 TEST_PATH = "/home/dl-box/Arghya/joseph/SRCNN-Tensorflow/Test/Set14/"
+
+DATA_PATH = "/home/dl-box/Arghya/joseph/SRCNN-keras/data/train/"
+TEST_PATH = "/home/dl-box/Arghya/joseph/SRCNN-keras/data/validation/"
+
 Random_Crop = 30
 Patch_size = 32
 label_size = 20
