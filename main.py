@@ -70,7 +70,7 @@ def train():
 def predict(is_sdd=True):
     srcnn_model = predict_model()
     srcnn_model.load_weights("SRCNN_check.h5")
-    IMG_NAME = "bookstore_video0_7632.jpg"
+    IMG_NAME = "demo_skater_0.png"
     INPUT_NAME = "jkj_bicubic_image.jpg"
     OUTPUT_NAME = "jkj_srcnn_image.jpg"
     MODIFIED_REAL_NAME = "jkj_modified_real_image.jpg"
