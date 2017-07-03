@@ -67,7 +67,7 @@ def train():
     # srcnn_model.load_weights("m_model_adam.h5")
 
 
-def predict(is_sdd=True):
+def predict(is_sdd=False):
     srcnn_model = predict_model()
     srcnn_model.load_weights("SRCNN_check.h5")
     IMG_NAME = "demo_skater_0.png"
