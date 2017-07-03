@@ -71,8 +71,8 @@ def predict(is_sdd=True):
     srcnn_model = predict_model()
     srcnn_model.load_weights("SRCNN_check.h5")
     IMG_NAME = "demo_skater_0.png"
-    INPUT_NAME = "jkj_bicubic_image.jpg"
-    OUTPUT_NAME = "jkj_srcnn_image.jpg"
+    INPUT_NAME = "jkj1_bicubic_image.jpg"
+    OUTPUT_NAME = "jkj1_srcnn_image.jpg"
     MODIFIED_REAL_NAME = "jkj1_modified_real_image.jpg"
 
     img = cv2.imread(IMG_NAME, cv2.IMREAD_COLOR)
