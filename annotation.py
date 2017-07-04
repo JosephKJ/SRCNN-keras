@@ -39,10 +39,10 @@ class AnnotateFrames:
                  '"Car"': (100, 100, 255), '"Bus"': (255, 100, 100)}
         cv2.rectangle(self.img, (x1, y1), (x2, y2), color[label], 2)
 
-        font = cv2.InitFont(cv2.CV_FONT_HERSHEY_SIMPLEX, 1, 1, 0, 3, 8)  # Creates a font
-        x = x1  # position of text
-        y = y1  # position of text
-        cv2.PutText(self.img, label, (x, y), font, 255)  # Draw the text
+        fontface = cv2.FONT_HERSHEY_SIMPLEX
+        fontscale = 1
+        fontcolor = (255, 255, 255)
+        cv2.putText(self.img, str(label), (x1, y1), fontface, fontscale, fontcolor)
 
     def show_image(self):
         while True:
