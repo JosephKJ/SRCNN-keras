@@ -40,7 +40,7 @@ class AnnotateFrames:
         cv2.rectangle(self.img, (x1, y1), (x2, y2), color[label], 2)
 
         fontface = cv2.FONT_HERSHEY_SIMPLEX
-        fontscale = 1
+        fontscale = .3
         fontcolor = (255, 255, 255)
         cv2.putText(self.img, str(label), (x1, y1), fontface, fontscale, fontcolor)
 
