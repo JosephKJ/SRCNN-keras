@@ -70,11 +70,11 @@ class AnnotateFrames:
 
         # self.show_image()
         print('Writing to file.')
-        cv2.imwrite("annotated_image.png", self.img)
+        cv2.imwrite("annotated_image_" + str(frame_number) + ".png", self.img)
 
 
-frame = cv2.imread('/home/dl-box/Arghya/joseph/data/StanfordDroneDataset/from_vigl_server/sdd/JPEGImages/bookstore_video0_10008.jpg')
+frame = cv2.imread('/home/dl-box/Arghya/joseph/data/StanfordDroneDataset/from_vigl_server/sdd/JPEGImages/bookstore_video0_5130.jpg')
 annotator = AnnotateFrames(frame)
 annotator.load_data()
-annotator.annotate(10008)
+annotator.annotate(5130)
 
