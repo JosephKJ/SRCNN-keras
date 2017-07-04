@@ -55,7 +55,6 @@ class AnnotateFrames:
 
         if len(label) == 0:
             print('No points found')
-            return 1
 
         print("Annotating")
         for cls in self.classes:
@@ -72,5 +71,5 @@ class AnnotateFrames:
 frame = cv2.imread('./annotations/bookstore/video0/reference.jpg')
 annotator = AnnotateFrames(frame)
 annotator.load_data()
-annotator.annotate(13335)
+annotator.annotate(1000)
 
