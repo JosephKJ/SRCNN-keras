@@ -28,7 +28,7 @@ class AnnotateFrames:
         self.img = image
 
     def load_data(self):
-        annotation_path = '/Users/josephkj/Desktop/annotations.txt'
+        annotation_path = './annotations/bookstore/video0/annotations.txt'
         self.annotation = np.loadtxt(annotation_path, usecols=(0, 1, 2, 3, 4, 5, 6, 7, 8),
                                      dtype=np.int)
         self.label = np.loadtxt(annotation_path, usecols=(9,) ,
@@ -69,7 +69,7 @@ class AnnotateFrames:
         cv2.imwrite("annotated_image.png", self.img)
 
 
-frame = cv2.imread('/Users/josephkj/Desktop/13335.jpg')
+frame = cv2.imread('./annotations/bookstore/video0/reference.jpg')
 annotator = AnnotateFrames(frame)
 annotator.load_data()
 annotator.annotate(13335)
