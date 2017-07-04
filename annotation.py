@@ -68,8 +68,8 @@ class AnnotateFrames:
         cv2.imwrite("annotated_image.png", self.img)
 
 
-frame = cv2.imread('./annotations/bookstore/video0/reference.jpg')
+frame = cv2.imread('/home/dl-box/Arghya/joseph/data/StanfordDroneDataset/from_vigl_server/sdd/JPEGImages/bookstore_video0_10008.jpg')
 annotator = AnnotateFrames(frame)
 annotator.load_data()
-annotator.annotate(1000)
+annotator.annotate(10008)
 
