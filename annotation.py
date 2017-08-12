@@ -77,4 +77,5 @@ frame = cv2.imread('/home/dl-box/Arghya/joseph/data/StanfordDroneDataset/from_vi
 annotator = AnnotateFrames(frame)
 annotator.load_data()
 annotator.annotate(5130)
+# 10008
 

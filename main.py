@@ -7,6 +7,7 @@ import prepare_data as pd
 import numpy
 import math
 import cv2
+import os
 
 
 def psnr(target, ref):
@@ -132,6 +133,34 @@ def predict(is_sdd=False):
     print(cv2.PSNR(im1, im4))
 
 
+def sr_an_image(image_path, image_name):
+    print ('SR-ing' + image_name + '...')
+    # Model
+    srcnn_model = predict_model()
+    srcnn_model.load_weights("SRCNN_check.h5")
+
+    # Input Image
+    im_file = os.path.join(image_path, image_name)
+    output_im_file = os.path.join(image_path, 'output', 'sr' + image_name)
+    img = cv2.imread(im_file, cv2.IMREAD_COLOR)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)
+
+    # -- Self Resolution: Starts
+    y = numpy.zeros((1, img.shape[0], img.shape[1], 1), dtype=float)
+    y[0, :, :, 0] = img[:, :, 0].astype(float) / 255.
+    pre = srcnn_model.predict(y, batch_size=1) * 255.
+    pre[pre[:] > 255] = 255
+    pre[pre[:] < 0] = 0
+    pre = pre.astype(numpy.uint8)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)
+    img[6: -6, 6: -6, 0] = pre[0, :, :, 0]
+    img = cv2.cvtColor(img, cv2.COLOR_YCrCb2BGR)
+    # -- Self Resolution: Ends
+
+    cv2.imwrite(output_im_file, img)
+    print ('SR-ing Done.')
+
 if __name__ == "__main__":
     # train()
-    predict()
+    # predict()
+    sr_an_image('/home/dl-box/Arghya/joseph/SRCNN-keras/detections/bc_images','bookstore_video0_9500_hr_bc_cart_0.png')
