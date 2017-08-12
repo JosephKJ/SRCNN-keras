@@ -134,14 +134,14 @@ def predict(is_sdd=False):
 
 
 def sr_an_image(image_path, image_name):
-    print ('SR-ing' + image_name + '...')
+    print ('SR-ing ' + image_name + '...')
     # Model
     srcnn_model = predict_model()
     srcnn_model.load_weights("SRCNN_check.h5")
 
     # Input Image
     im_file = os.path.join(image_path, image_name)
-    output_im_file = os.path.join(image_path, 'output', 'sr' + image_name)
+    output_im_file = os.path.join(image_path, 'output', 'sr_' + image_name)
     img = cv2.imread(im_file, cv2.IMREAD_COLOR)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)
 
@@ -163,4 +163,4 @@ def sr_an_image(image_path, image_name):
 if __name__ == "__main__":
     # train()
     # predict()
-    sr_an_image('/home/dl-box/Arghya/joseph/SRCNN-keras/detections/bc_images','bookstore_video0_9500_hr_bc_cart_0.png')
+    sr_an_image('/home/dl-box/Arghya/joseph/SRCNN-keras/detections/bc_images','bookstore_video0_9500_hr_bc_pedestrian_2.png')
